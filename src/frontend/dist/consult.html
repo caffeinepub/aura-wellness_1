@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consult a Physician — Aura Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+<nav id="navbar"><div class="nav-inner">
+  <a href="/index.html" class="nav-logo">Aura Wellness</a>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a><a href="/mind.html" class="nav-link">Mind</a>
+    <a href="/body.html" class="nav-link">Body</a><a href="/sleep.html" class="nav-link">Sleep</a>
+    <a href="/nutrition.html" class="nav-link">Nutrition</a><a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/consult.html" class="nav-link">Consult</a>
+  </div>
+  <div class="nav-right"><button class="btn-login" onclick="window.location='/login.html'">Login</button><button id="theme-toggle" aria-label="Toggle theme"></button><button id="hamburger">&#9776;</button></div>
+</div></nav>
+<div id="mobile-menu"><button id="menu-close">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a><a href="/mind.html" class="nav-link mobile-nav-link">Mind</a><a href="/body.html" class="nav-link mobile-nav-link">Body</a><a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a><a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a><a href="/blog.html" class="nav-link mobile-nav-link">Blog</a><a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+<div id="cursor"></div>
+
+<!-- Booking Modal -->
+<div class="booking-modal" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="booking-box">
+    <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+    <h3 id="modal-title" style="font-family:Poppins,sans-serif;margin-bottom:20px">Book a Consultation</h3>
+    <div class="booking-steps"><div class="step-dot done" id="sdot1"></div><div class="step-dot" id="sdot2"></div><div class="step-dot" id="sdot3"></div></div>
+    <!-- Step 1 -->
+    <div class="step-content active" id="step1">
+      <h4 style="margin-bottom:12px">Choose a Date</h4>
+      <div class="day-slots" id="day-slots"></div>
+      <h4 style="margin:16px 0 12px">Choose a Time</h4>
+      <div class="time-slots">
+        <button class="time-slot">9:00 AM</button><button class="time-slot">10:00 AM</button>
+        <button class="time-slot">11:30 AM</button><button class="time-slot">2:00 PM</button>
+        <button class="time-slot">3:30 PM</button><button class="time-slot">5:00 PM</button>
+      </div>
+      <button class="btn btn-primary" style="margin-top:24px;width:100%" onclick="nextStep(2)">Continue &rarr;</button>
+    </div>
+    <!-- Step 2 -->
+    <div class="step-content" id="step2">
+      <h4 style="margin-bottom:16px">Your Details</h4>
+      <div class="form-field"><label>Full Name</label><input type="text" placeholder="Dr. Jane Smith"></div>
+      <div class="form-field"><label>Email</label><input type="email" placeholder="jane@example.com"></div>
+      <div class="form-field"><label>Phone</label><input type="tel" placeholder="+1 234 567 8900"></div>
+      <div class="form-field"><label>What brings you here today?</label><textarea placeholder="Briefly describe your concern..."></textarea></div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <button class="btn" style="flex:1;background:rgba(255,255,255,0.07);color:var(--c-text)" onclick="nextStep(1)">&larr; Back</button>
+        <button class="btn btn-primary" style="flex:2" onclick="nextStep(3)">Continue &rarr;</button>
+      </div>
+    </div>
+    <!-- Step 3 -->
+    <div class="step-content" id="step3">
+      <div id="confirm-content" style="text-align:center;padding:20px 0">
+        <div style="font-size:3rem;margin-bottom:16px">📅</div>
+        <h4 style="font-family:Poppins,sans-serif;font-size:1.1rem;margin-bottom:8px">You’re almost there!</h4>
+        <p style="color:var(--c-muted);font-size:0.9rem;margin-bottom:24px">Review your booking details and confirm.</p>
+        <div style="background:rgba(255,255,255,0.05);border-radius:var(--radius-md);padding:16px;text-align:left;margin-bottom:24px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--c-muted)">Doctor</span><span id="confirm-doctor">Selected Doctor</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--c-muted)">Session</span><span>Video Consultation</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:var(--c-muted)">Duration</span><span>30 minutes</span></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%" id="confirm-btn">Confirm Booking ✨</button>
+      </div>
+      <div id="success-content" style="display:none;text-align:center;padding:20px 0">
+        <div style="font-size:4rem;margin-bottom:16px">&#10003;</div>
+        <h4 style="font-family:Poppins,sans-serif;color:var(--c-success);font-size:1.3rem;margin-bottom:8px">Booking Confirmed!</h4>
+        <p style="color:var(--c-muted)">You’ll receive a confirmation email shortly. See you soon!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- Hero -->
+  <div class="consult-hero">
+    <div class="consult-hero-left">
+      <span class="badge badge-success" style="margin-bottom:16px">&#128274; Verified &amp; Secure</span>
+      <h1>Expert Care,<br>On Your Terms</h1>
+      <p style="color:var(--c-muted);margin:12px 0 24px">Connect with certified specialists from the comfort of your home. Same-day appointments available.</p>
+      <div class="trust-badges">
+        <span class="trust-badge">🔒 HIPAA Compliant</span>
+        <span class="trust-badge">✓ 200+ Specialists</span>
+        <span class="trust-badge">★ 4.9 Rating</span>
+        <span class="trust-badge">🌍 15+ Countries</span>
+      </div>
+    </div>
+    <div class="consult-hero-right">
+      <svg class="doctor-illus" width="220" height="280" viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Doctor illustration (simplified) -->
+        <circle cx="110" cy="60" r="44" fill="#7B68EE" opacity="0.9"/>
+        <ellipse cx="110" cy="180" rx="55" ry="70" fill="#1E3A45"/>
+        <circle cx="110" cy="60" r="36" fill="#F5E6C8" opacity="0.95"/>
+        <!-- Face -->
+        <circle cx="98" cy="56" r="4" fill="#1A2E35"/>
+        <circle cx="122" cy="56" r="4" fill="#1A2E35"/>
+        <path d="M100,72 Q110,80 120,72" stroke="#1A2E35" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Stethoscope -->
+        <path d="M85,130 Q75,155 85,165 Q95,175 110,165" stroke="#7B68EE" stroke-width="3" fill="none"/>
+        <circle cx="110" cy="165" r="8" fill="none" stroke="#7B68EE" stroke-width="3"/>
+        <!-- Coat -->
+        <rect x="75" y="110" width="70" height="100" rx="8" fill="#E8F4F8" opacity="0.9"/>
+        <rect x="105" y="115" width="10" height="30" rx="3" fill="#7B68EE" opacity="0.5"/>
+        <!-- Arms -->
+        <rect x="45" y="115" width="30" height="20" rx="10" fill="#E8F4F8" opacity="0.9"/>
+        <rect x="145" y="115" width="30" height="20" rx="10" fill="#E8F4F8" opacity="0.9"/>
+      </svg>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Specialty filter -->
+      <h2 class="section-title animate-on-scroll">Our Specialists</h2>
+      <div class="specialty-pills animate-on-scroll" id="spec-filter">
+        <button class="spec-pill active" data-spec="all">All</button>
+        <button class="spec-pill" data-spec="general">General Wellness</button>
+        <button class="spec-pill" data-spec="mental">Mental Health</button>
+        <button class="spec-pill" data-spec="nutrition">Nutrition &amp; Dietetics</button>
+        <button class="spec-pill" data-spec="sleep">Sleep Medicine</button>
+        <button class="spec-pill" data-spec="sports">Sports Medicine</button>
+        <button class="spec-pill" data-spec="women">Women’s Health</button>
+        <button class="spec-pill" data-spec="derm">Dermatology</button>
+      </div>
+
+      <!-- Doctor grid -->
+      <div class="grid-3" id="doctor-grid" style="margin-top:32px">
+        <div class="doctor-card animate-on-scroll" data-spec="general">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#7B68EE,#5a4fcc)">SC<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Sarah Chen</div><div class="doc-spec">General Wellness</div>
+          <div class="doc-rating">★★★★★ 4.9 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(312 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Mandarin &nbsp;&bull;&nbsp; 📅 Available Today</div>
+          <div class="doc-fee">$85<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Sarah Chen')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="mental">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#2ECC71,#27AE60)">MJ<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Marcus Johnson</div><div class="doc-spec">Mental Health</div>
+          <div class="doc-rating">★★★★★ 4.8 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(289 reviews)</span></div>
+          <div class="doc-meta">🗣 English &nbsp;&bull;&nbsp; 📅 Next: Tomorrow</div>
+          <div class="doc-fee">$120<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Marcus Johnson')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="sleep">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#3498DB,#2980B9)">PP<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Priya Patel</div><div class="doc-spec">Sleep Medicine</div>
+          <div class="doc-rating">★★★★★ 4.9 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(198 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Hindi &nbsp;&bull;&nbsp; 📅 Available Today</div>
+          <div class="doc-fee">$95<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Priya Patel')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="sports">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#E74C3C,#C0392B)">JW<div class="doc-status soon"></div></div>
+          <div class="doc-name">Dr. James Wilson</div><div class="doc-spec">Sports Medicine</div>
+          <div class="doc-rating">★★★★½ 4.7 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(156 reviews)</span></div>
+          <div class="doc-meta">🗣 English &nbsp;&bull;&nbsp; 📅 Next: Thursday</div>
+          <div class="doc-fee">$110<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. James Wilson')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="nutrition">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#F39C12,#E67E22)">AM<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Aisha Mohammed</div><div class="doc-spec">Nutrition &amp; Dietetics</div>
+          <div class="doc-rating">★★★★★ 4.8 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(241 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Arabic &nbsp;&bull;&nbsp; 📅 Available Today</div>
+          <div class="doc-fee">$75<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Aisha Mohammed')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="women">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#9B59B6,#8E44AD)">EV<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Elena Vasquez</div><div class="doc-spec">Women’s Health</div>
+          <div class="doc-rating">★★★★★ 4.9 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(178 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Spanish &nbsp;&bull;&nbsp; 📅 Next: Wednesday</div>
+          <div class="doc-fee">$100<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Elena Vasquez')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="derm">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#1ABC9C,#16A085)">DK<div class="doc-status soon"></div></div>
+          <div class="doc-name">Dr. David Kim</div><div class="doc-spec">Dermatology</div>
+          <div class="doc-rating">★★★★½ 4.6 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(132 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Korean &nbsp;&bull;&nbsp; 📅 Next: Friday</div>
+          <div class="doc-fee">$90<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. David Kim')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="mental">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#E91E63,#C2185B)">RT<div class="doc-status available"></div></div>
+          <div class="doc-name">Dr. Rachel Torres</div><div class="doc-spec">Mental Health</div>
+          <div class="doc-rating">★★★★★ 4.8 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(204 reviews)</span></div>
+          <div class="doc-meta">🗣 English, Portuguese &nbsp;&bull;&nbsp; 📅 Available Today</div>
+          <div class="doc-fee">$115<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Rachel Torres')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+        <div class="doctor-card animate-on-scroll" data-spec="general">
+          <div class="doc-avatar" style="background:linear-gradient(135deg,#607D8B,#455A64)">MB<div class="doc-status soon"></div></div>
+          <div class="doc-name">Dr. Michael Brown</div><div class="doc-spec">General Wellness</div>
+          <div class="doc-rating">★★★★½ 4.7 &nbsp;<span style="color:var(--c-muted);font-size:0.78rem">(267 reviews)</span></div>
+          <div class="doc-meta">🗣 English &nbsp;&bull;&nbsp; 📅 Next: Thursday</div>
+          <div class="doc-fee">$80<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/session</span></div>
+          <div class="doc-actions"><button class="btn-book" onclick="openModal('Dr. Michael Brown')">Book Now</button><button class="btn-view">View Profile</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" style="background:var(--c-primary)">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll" style="text-align:center">How It Works</h2>
+      <p class="section-sub animate-on-scroll" style="text-align:center">Get expert care in 4 simple steps</p>
+      <div class="how-timeline animate-on-scroll">
+        <div class="timeline-step"><div class="step-num">1</div><h4>Choose Specialist</h4><p>Browse verified doctors by specialty and availability</p></div>
+        <div class="timeline-step"><div class="step-num">2</div><h4>Book Your Slot</h4><p>Select a date and time that works for your schedule</p></div>
+        <div class="timeline-step"><div class="step-num">3</div><h4>Join Video Call</h4><p>Connect securely from any device, anywhere in the world</p></div>
+        <div class="timeline-step"><div class="step-num">4</div><h4>Get Your Plan</h4><p>Receive a personalised care plan and follow-up support</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Patient Stories</h2>
+      <div class="grid-3">
+        <div class="testimonial-card animate-on-scroll"><p class="testimonial-text">“Dr. Patel completely transformed my sleep. Within 3 weeks of following her plan, I was sleeping 7+ hours straight. Life-changing.”</p><div class="testimonial-author"><div class="author-av" style="background:#7B68EE">EL</div><div><div class="author-name">Emma L.</div><div class="author-role">Sleep Medicine Patient</div></div></div></div>
+        <div class="testimonial-card animate-on-scroll"><p class="testimonial-text">“I was skeptical about virtual consultations but Dr. Johnson was incredibly thorough and empathetic. I finally feel heard and have a real plan.”</p><div class="testimonial-author"><div class="author-av" style="background:#2ECC71">MT</div><div><div class="author-name">Marcus T.</div><div class="author-role">Mental Health Patient</div></div></div></div>
+        <div class="testimonial-card animate-on-scroll"><p class="testimonial-text">“Aisha’s nutrition plan was practical and delicious. I lost 8kg in 2 months without feeling deprived. The recipes she recommended are amazing.”</p><div class="testimonial-author"><div class="author-av" style="background:#F39C12">PS</div><div><div class="author-name">Priya S.</div><div class="author-role">Nutrition Patient</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="padding-top:0">
+    <div class="container" style="max-width:720px">
+      <h2 class="section-title animate-on-scroll">Frequently Asked Questions</h2>
+      <div class="faq-accordion animate-on-scroll">
+        <div class="faq-item"><button class="faq-q">How do video consultations work? <span class="arrow">▾</span></button><div class="faq-a"><div class="faq-a-inner">After booking, you’ll receive a secure link to join the video call at your scheduled time. No downloads required — just a browser and stable internet.</div></div></div>
+        <div class="faq-item"><button class="faq-q">Are the doctors verified and licensed? <span class="arrow">▾</span></button><div class="faq-a"><div class="faq-a-inner">Yes. Every specialist on Aura Wellness is fully licensed, board-certified in their specialty, and verified through our rigorous credential check process.</div></div></div>
+        <div class="faq-item"><button class="faq-q">Can I get a prescription through the platform? <span class="arrow">▾</span></button><div class="faq-a"><div class="faq-a-inner">Some specialists can prescribe where legally permitted. Your doctor will advise on this during your consultation. Check local regulations for your region.</div></div></div>
+        <div class="faq-item"><button class="faq-q">What if I need to reschedule? <span class="arrow">▾</span></button><div class="faq-a"><div class="faq-a-inner">You can reschedule up to 4 hours before your appointment at no charge. Same-day cancellations may incur a small fee.</div></div></div>
+        <div class="faq-item"><button class="faq-q">Is my health information kept private? <span class="arrow">▾</span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. All consultations and health data are protected under HIPAA and our strict privacy policy. Your information is never shared without your consent.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="newsletter-bar"><h3>Get Wellness Updates</h3><p>Tips from our specialists, delivered weekly.</p>
+    <div class="newsletter-form"><input type="email" placeholder="Your email" aria-label="Email"><button onclick="window.location='/newsletter.html'">Subscribe</button></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab">&#11088; Review</a>
+<script src="/main.js"></script>
+<script src="/consult.js"></script>
+</body></html>

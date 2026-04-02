@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Aura Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<nav id="navbar"><div class="nav-inner">
+  <a href="/index.html" class="nav-logo">Aura Wellness</a>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a><a href="/mind.html" class="nav-link">Mind</a>
+    <a href="/body.html" class="nav-link">Body</a><a href="/sleep.html" class="nav-link">Sleep</a>
+    <a href="/nutrition.html" class="nav-link">Nutrition</a><a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/consult.html" class="nav-link">Consult</a>
+  </div>
+  <div class="nav-right"><button class="btn-login" onclick="window.location='/login.html'">Login</button><button id="theme-toggle" aria-label="Toggle theme"></button><button id="hamburger">&#9776;</button></div>
+</div></nav>
+<div id="mobile-menu"><button id="menu-close">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a><a href="/mind.html" class="nav-link mobile-nav-link">Mind</a><a href="/body.html" class="nav-link mobile-nav-link">Body</a><a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a><a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a><a href="/blog.html" class="nav-link mobile-nav-link">Blog</a><a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+<div id="cursor"></div>
+<main>
+  <div class="blog-hero">
+    <h1>Wellness <span class="underline-draw" id="blog-headline-accent">Insights</span></h1>
+    <p style="color:rgba(255,255,255,0.7);margin-bottom:24px">Expert articles, science-backed guides, and real success stories.</p>
+    <input type="text" class="blog-search" id="blog-search" placeholder="Search articles..." aria-label="Search articles">
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Category pills -->
+      <div class="cat-nav" id="cat-nav" role="tablist">
+        <button class="cat-pill active" data-cat="all" role="tab" aria-selected="true">All</button>
+        <button class="cat-pill" data-cat="mind" role="tab">Mind &amp; Mental Health</button>
+        <button class="cat-pill" data-cat="nutrition" role="tab">Nutrition</button>
+        <button class="cat-pill" data-cat="fitness" role="tab">Fitness</button>
+        <button class="cat-pill" data-cat="sleep" role="tab">Sleep Science</button>
+        <button class="cat-pill" data-cat="mindfulness" role="tab">Mindfulness</button>
+        <button class="cat-pill" data-cat="doctor" role="tab">Doctor’s Corner</button>
+        <button class="cat-pill" data-cat="success" role="tab">Success Stories</button>
+      </div>
+
+      <!-- Featured post -->
+      <div class="card animate-on-scroll" id="featured-post" style="display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;padding:0;margin-bottom:40px">
+        <div style="background:linear-gradient(135deg,#1A2E35,#7B68EE);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem">🧠</div>
+        <div style="padding:32px">
+          <span class="badge" style="background:var(--c-accent);color:#fff;margin-bottom:12px">&#9733; Featured</span>
+          <h3 style="font-family:Poppins,sans-serif;font-size:1.3rem;margin-bottom:10px">10 Science-Backed Ways to Reduce Cortisol Naturally</h3>
+          <p style="color:var(--c-muted);font-size:0.9rem;margin-bottom:16px">Cortisol, the “stress hormone,” can wreak havoc on your health when chronically elevated. Discover evidence-based strategies to bring it under control.</p>
+          <a href="/blog-post.html" class="btn btn-primary" style="font-size:0.85rem;padding:10px 22px">Read Article &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Blog layout -->
+      <div class="blog-layout">
+        <div>
+          <div class="blog-masonry" id="blog-grid">
+            <div class="blog-card animate-on-scroll" data-cat="mind"><div class="blog-img" style="background:linear-gradient(135deg,#1A2E35,#7B68EE)">🧠</div><div class="blog-info"><div class="cat">Mind</div><h3>10 Science-Backed Ways to Reduce Cortisol Naturally</h3><p>Evidence-based strategies to lower stress hormones for better health.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="nutrition"><div class="blog-img" style="background:linear-gradient(135deg,#1E4A2A,#2ECC71)">🥗</div><div class="blog-info"><div class="cat">Nutrition</div><h3>The Mediterranean Diet: A Complete Beginner’s Guide</h3><p>Everything you need to know to start eating the world’s healthiest cuisine.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="sleep"><div class="blog-img" style="background:linear-gradient(135deg,#2A1A4A,#7B68EE)">🌙</div><div class="blog-info"><div class="cat">Sleep Science</div><h3>Why You’re Waking Up at 3am — and How to Fix It</h3><p>Understanding cortisol spikes, blood sugar, and sleep disruption.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="doctor"><div class="blog-img" style="background:linear-gradient(135deg,#2A2A1A,#F39C12)">👨‍⚕️</div><div class="blog-info"><div class="cat">Doctor’s Corner</div><h3>Doctor’s Corner: When to Seek Help for Anxiety</h3><p>A psychiatrist’s guide to recognizing when professional support is the right step.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="fitness"><div class="blog-img" style="background:linear-gradient(135deg,#3A1A1A,#E74C3C)">🏋️</div><div class="blog-info"><div class="cat">Fitness</div><h3>HIIT vs Steady-State Cardio: What the Research Says</h3><p>Which form of cardio is actually better for fat loss and heart health?</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="mindfulness"><div class="blog-img" style="background:linear-gradient(135deg,#1A3A3A,#1ABC9C)">🧘</div><div class="blog-info"><div class="cat">Mindfulness</div><h3>5-Minute Mindfulness: The Science of Micro-Meditations</h3><p>You don’t need an hour. Here’s how small doses of mindfulness compound.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="success"><div class="blog-img" style="background:linear-gradient(135deg,#3A1A3A,#9B59B6)">👊</div><div class="blog-info"><div class="cat">Success Stories</div><h3>Sarah’s Story: How I Lost 30kg and Found Myself</h3><p>An honest account of transformation, setbacks, and ultimate success.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="nutrition"><div class="blog-img" style="background:linear-gradient(135deg,#1A3A2A,#27AE60)">🦠</div><div class="blog-info"><div class="cat">Nutrition</div><h3>Gut Health 101: The Microbiome-Mood Connection</h3><p>How the trillions of bacteria in your gut directly influence your mental health.</p></div></div>
+            <div class="blog-card animate-on-scroll" data-cat="doctor"><div class="blog-img" style="background:linear-gradient(135deg,#1A2A3A,#2980B9)">👨‍⚕️</div><div class="blog-info"><div class="cat">Doctor’s Corner</div><h3>Dr. Patel’s Guide to Better Sleep Hygiene</h3><p>A sleep medicine specialist shares the habits that actually work.</p></div></div>
+          </div>
+          <div id="no-results" style="display:none;text-align:center;padding:48px;color:var(--c-muted)">No articles found. Try a different search.</div>
+        </div>
+        <!-- Sidebar -->
+        <aside class="blog-sidebar animate-on-scroll">
+          <h4>Popular This Week</h4>
+          <div class="sidebar-post"><div class="sidebar-post-dot"></div><span>The Mediterranean Diet: A Complete Beginner’s Guide</span></div>
+          <div class="sidebar-post"><div class="sidebar-post-dot"></div><span>Why You’re Waking Up at 3am</span></div>
+          <div class="sidebar-post"><div class="sidebar-post-dot"></div><span>HIIT vs Steady-State Cardio</span></div>
+          <hr style="border-color:rgba(255,255,255,0.06);margin:16px 0">
+          <h4>Topics</h4>
+          <div class="tag-cloud">
+            <span class="tag">Sleep</span><span class="tag">Nutrition</span><span class="tag">Fitness</span>
+            <span class="tag">Mindfulness</span><span class="tag">Stress</span><span class="tag">Diet</span>
+            <span class="tag">Mental Health</span><span class="tag">Yoga</span><span class="tag">Recovery</span>
+          </div>
+          <hr style="border-color:rgba(255,255,255,0.06);margin:16px 0">
+          <h4>Weekly Tips</h4>
+          <p style="font-size:0.85rem;color:var(--c-muted);margin-bottom:12px">Get expert wellness content every week.</p>
+          <button class="btn btn-primary" style="width:100%;font-size:0.85rem" onclick="window.location='/newsletter.html'">Subscribe Free</button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="newsletter-bar"><h3>Never Miss an Article</h3><p>Get the latest wellness insights delivered weekly.</p>
+    <div class="newsletter-form"><input type="email" placeholder="Your email" aria-label="Email"><button onclick="window.location='/newsletter.html'">Subscribe</button></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab">&#11088; Review</a>
+<script src="/main.js"></script>
+<script src="/blog.js"></script>
+</body></html>

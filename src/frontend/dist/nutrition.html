@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition — Aura Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<nav id="navbar"><div class="nav-inner">
+  <a href="/index.html" class="nav-logo">Aura Wellness</a>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a><a href="/mind.html" class="nav-link">Mind</a>
+    <a href="/body.html" class="nav-link">Body</a><a href="/sleep.html" class="nav-link">Sleep</a>
+    <a href="/nutrition.html" class="nav-link">Nutrition</a><a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/consult.html" class="nav-link">Consult</a>
+  </div>
+  <div class="nav-right"><button class="btn-login" onclick="window.location='/login.html'">Login</button><button id="theme-toggle" aria-label="Toggle theme"></button><button id="hamburger">&#9776;</button></div>
+</div></nav>
+<div id="mobile-menu"><button id="menu-close">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a><a href="/mind.html" class="nav-link mobile-nav-link">Mind</a><a href="/body.html" class="nav-link mobile-nav-link">Body</a><a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a><a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a><a href="/blog.html" class="nav-link mobile-nav-link">Blog</a><a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+<div id="cursor"></div>
+<main>
+  <div class="page-hero"><h1>🥗 Nutrition</h1><p>Fuel your body right with science-backed nutrition tools and recipes.</p></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="align-items:start;gap:48px">
+        <!-- Food Wheel -->
+        <div class="animate-on-scroll">
+          <h2 class="section-title">Food Groups Wheel</h2>
+          <p class="section-sub">Click a segment to learn more</p>
+          <div class="food-wheel-wrap">
+            <svg id="food-wheel" viewBox="-1 -1 2 2" xmlns="http://www.w3.org/2000/svg">
+              <!-- 6 segments -->
+              <path class="segment" d="M0,0 L1,0 A1,1 0,0,1 0.5,0.866 Z" fill="#E74C3C" data-label="Proteins" data-info="Proteins: Chicken, fish, eggs, legumes, tofu" opacity="0.85"/>
+              <path class="segment" d="M0,0 L0.5,0.866 A1,1 0,0,1 -0.5,0.866 Z" fill="#F39C12" data-label="Carbs" data-info="Carbs: Whole grains, oats, sweet potato, quinoa" opacity="0.85"/>
+              <path class="segment" d="M0,0 L-0.5,0.866 A1,1 0,0,1 -1,0 Z" fill="#2ECC71" data-label="Fats" data-info="Fats: Avocado, olive oil, nuts, seeds, salmon" opacity="0.85"/>
+              <path class="segment" d="M0,0 L-1,0 A1,1 0,0,1 -0.5,-0.866 Z" fill="#3498DB" data-label="Vitamins" data-info="Vitamins: Leafy greens, citrus, berries, bell peppers" opacity="0.85"/>
+              <path class="segment" d="M0,0 L-0.5,-0.866 A1,1 0,0,1 0.5,-0.866 Z" fill="#9B59B6" data-label="Minerals" data-info="Minerals: Dark chocolate, bananas, dairy, seeds" opacity="0.85"/>
+              <path class="segment" d="M0,0 L0.5,-0.866 A1,1 0,0,1 1,0 Z" fill="#1ABC9C" data-label="Fiber" data-info="Fiber: Beans, lentils, oats, apples, broccoli" opacity="0.85"/>
+            </svg>
+          </div>
+          <div id="food-info" style="text-align:center;margin-top:16px;min-height:40px;color:var(--c-muted);font-size:0.95rem">Click a segment to learn about that food group</div>
+        </div>
+        <!-- Water Tracker -->
+        <div class="animate-on-scroll">
+          <h2 class="section-title">Water Intake Tracker</h2>
+          <p class="section-sub">Target: 8 glasses per day. Resets daily.</p>
+          <div class="water-tracker">
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px" id="glass-grid"></div>
+            <div class="water-glass"><div class="water-fill" id="water-fill"></div></div>
+            <div class="water-count" id="water-count">0 / 8 glasses</div>
+            <button class="btn-water" id="water-add" aria-label="Add a glass of water">+ Add Glass</button>
+            <button style="background:transparent;border:none;color:var(--c-muted);font-size:0.8rem;margin-top:10px;cursor:pointer;display:block;margin-left:auto;margin-right:auto" id="water-reset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Macro Calculator</h2>
+      <p class="section-sub animate-on-scroll">Estimate your daily macronutrient needs</p>
+      <div class="card animate-on-scroll" style="max-width:640px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="input-group"><label>Gender</label><select id="mc-gender"><option value="m">Male</option><option value="f">Female</option></select></div>
+          <div class="input-group"><label>Age</label><input type="number" id="mc-age" value="30" min="15" max="80"></div>
+          <div class="input-group"><label>Weight (kg)</label><input type="number" id="mc-weight" value="70" min="30" max="200"></div>
+          <div class="input-group"><label>Height (cm)</label><input type="number" id="mc-height" value="170" min="140" max="220"></div>
+          <div class="input-group" style="grid-column:1/-1"><label>Activity Level</label>
+            <select id="mc-activity">
+              <option value="1.2">Sedentary (desk job)</option>
+              <option value="1.375">Lightly active (1-3x/week)</option>
+              <option value="1.55" selected>Moderately active (3-5x/week)</option>
+              <option value="1.725">Very active (6-7x/week)</option>
+              <option value="1.9">Extra active (athlete)</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="calcMacros()">Calculate Macros</button>
+        <div id="macro-result" style="display:none;margin-top:24px">
+          <div id="tdee-display" style="text-align:center;margin-bottom:16px;font-family:Poppins,sans-serif;font-size:1.1rem"></div>
+          <div class="macro-rings">
+            <div class="ring-item"><svg viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fill" id="ring-protein" cx="50" cy="50" r="40" stroke="#E74C3C"/></svg><div class="ring-label" id="label-protein">Protein</div></div>
+            <div class="ring-item"><svg viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fill" id="ring-carbs" cx="50" cy="50" r="40" stroke="#F39C12"/></svg><div class="ring-label" id="label-carbs">Carbs</div></div>
+            <div class="ring-item"><svg viewBox="0 0 100 100"><circle class="ring-bg" cx="50" cy="50" r="40"/><circle class="ring-fill" id="ring-fats" cx="50" cy="50" r="40" stroke="#2ECC71"/></svg><div class="ring-label" id="label-fats">Fats</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Healthy Recipes</h2>
+      <p class="section-sub animate-on-scroll">Click the heart to save your favourites</p>
+      <div class="recipe-grid">
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#1A4A2A,#2ECC71)">🥗<button class="recipe-heart" data-id="r1" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>Mediterranean Bowl</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">500 kcal</span><span class="badge badge-accent">30g protein</span></div></div></div>
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#4A3A1A,#F39C12)">🥘<button class="recipe-heart" data-id="r2" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>Golden Turmeric Oats</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">350 kcal</span><span class="badge badge-accent">12g protein</span></div></div></div>
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#1A2A4A,#3498DB)">🐟<button class="recipe-heart" data-id="r3" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>Salmon &amp; Quinoa Power Plate</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">620 kcal</span><span class="badge badge-accent">45g protein</span></div></div></div>
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#2A1A4A,#9B59B6)">🫐<button class="recipe-heart" data-id="r4" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>Berry Protein Smoothie</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">280 kcal</span><span class="badge badge-accent">24g protein</span></div></div></div>
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#1A4A3A,#1ABC9C)">🥦<button class="recipe-heart" data-id="r5" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>Green Detox Salad</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">220 kcal</span><span class="badge badge-accent">8g protein</span></div></div></div>
+        <div class="recipe-card animate-on-scroll"><div class="recipe-img" style="background:linear-gradient(135deg,#4A1A1A,#E74C3C)">🍳<button class="recipe-heart" data-id="r6" aria-label="Favourite">&#10084;</button></div><div class="recipe-info"><h4>High-Protein Egg &amp; Veggie Scramble</h4><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="badge badge-success">380 kcal</span><span class="badge badge-accent">28g protein</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="card animate-on-scroll" style="background:linear-gradient(135deg,#1A2E35,#2a3f4a);text-align:center;padding:48px">
+        <div style="font-size:2.5rem;margin-bottom:16px">🥗</div>
+        <h3 style="font-family:Poppins,sans-serif;font-size:1.4rem;margin-bottom:10px">Talk to a Nutrition Specialist</h3>
+        <p style="color:var(--c-muted);margin-bottom:24px">Get a personalised eating plan from a registered dietitian.</p>
+        <a href="/consult.html" class="btn btn-primary">Book a Session &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="newsletter-bar"><h3>Eat Smarter</h3><p>Weekly nutrition science, recipes, and expert tips.</p>
+    <div class="newsletter-form"><input type="email" placeholder="Your email" aria-label="Email"><button onclick="window.location='/newsletter.html'">Subscribe</button></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab">&#11088; Review</a>
+<script src="/main.js"></script>
+<script src="/nutrition.js"></script>
+</body></html>

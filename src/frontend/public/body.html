@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body — Aura Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<nav id="navbar"><div class="nav-inner">
+  <a href="/index.html" class="nav-logo">Aura Wellness</a>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a><a href="/mind.html" class="nav-link">Mind</a>
+    <a href="/body.html" class="nav-link">Body</a><a href="/sleep.html" class="nav-link">Sleep</a>
+    <a href="/nutrition.html" class="nav-link">Nutrition</a><a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/consult.html" class="nav-link">Consult</a>
+  </div>
+  <div class="nav-right"><button class="btn-login" onclick="window.location='/login.html'">Login</button><button id="theme-toggle" aria-label="Toggle theme"></button><button id="hamburger">&#9776;</button></div>
+</div></nav>
+<div id="mobile-menu"><button id="menu-close">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a><a href="/mind.html" class="nav-link mobile-nav-link">Mind</a>
+  <a href="/body.html" class="nav-link mobile-nav-link">Body</a><a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a>
+  <a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a><a href="/blog.html" class="nav-link mobile-nav-link">Blog</a>
+  <a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+<div id="cursor"></div>
+<main>
+  <div class="page-hero"><h1>&#128170; Body &amp; Fitness</h1><p>Workouts, tools, and insights to build the healthiest version of you.</p></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="align-items:start;gap:48px">
+        <!-- SVG Body -->
+        <div class="animate-on-scroll">
+          <h2 class="section-title">Body Zone Explorer</h2>
+          <p class="section-sub">Click a zone for a workout suggestion</p>
+          <div style="position:relative;display:inline-block">
+            <svg class="svgbody" viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg">
+              <!-- Head -->
+              <ellipse class="zone" data-zone="Head" data-tip="Head: Neck rolls, chin tucks, scalp massage" cx="100" cy="40" rx="28" ry="32"/>
+              <!-- Shoulders -->
+              <ellipse class="zone" data-zone="Shoulders" data-tip="Shoulders: Overhead press, lateral raises, shrugs" cx="100" cy="100" rx="55" ry="18"/>
+              <!-- Chest -->
+              <rect class="zone" data-zone="Chest" data-tip="Chest: Push-ups, bench press, chest flyes" x="60" y="118" width="80" height="55" rx="8"/>
+              <!-- Abs -->
+              <rect class="zone" data-zone="Abs" data-tip="Abs: Planks, crunches, bicycle kicks, leg raises" x="65" y="178" width="70" height="60" rx="6"/>
+              <!-- Arms Left -->
+              <rect class="zone" data-zone="Arms" data-tip="Arms: Bicep curls, tricep dips, hammer curls" x="24" y="118" width="30" height="100" rx="12"/>
+              <!-- Arms Right -->
+              <rect class="zone" data-zone="Arms" data-tip="Arms: Bicep curls, tricep dips, hammer curls" x="146" y="118" width="30" height="100" rx="12"/>
+              <!-- Legs Left -->
+              <rect class="zone" data-zone="Legs" data-tip="Legs: Squats, lunges, deadlifts, leg press" x="56" y="244" width="36" height="130" rx="14"/>
+              <!-- Legs Right -->
+              <rect class="zone" data-zone="Legs" data-tip="Legs: Squats, lunges, deadlifts, leg press" x="108" y="244" width="36" height="130" rx="14"/>
+            </svg>
+            <div class="zone-tooltip" id="zone-tooltip"></div>
+          </div>
+        </div>
+        <!-- BMI Calculator -->
+        <div class="animate-on-scroll">
+          <h2 class="section-title">BMI Calculator</h2>
+          <p class="section-sub">Enter your stats to see your health range</p>
+          <div class="bmi-calc">
+            <div class="bmi-inputs">
+              <div class="input-group"><label for="bmi-weight">Weight (kg)</label><input type="number" id="bmi-weight" placeholder="70" min="30" max="300"></div>
+              <div class="input-group"><label for="bmi-height">Height (cm)</label><input type="number" id="bmi-height" placeholder="170" min="100" max="250"></div>
+            </div>
+            <button class="btn btn-primary" onclick="calcBMI()">Calculate BMI</button>
+            <div id="bmi-result" style="display:none;margin-top:20px">
+              <svg width="120" height="120" viewBox="0 0 120 120" style="transform:rotate(-90deg);display:block;margin:0 auto">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+                <circle id="bmi-ring" cx="60" cy="60" r="50" fill="none" stroke="#2ECC71" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition:stroke-dashoffset 1.2s ease"/>
+              </svg>
+              <div id="bmi-value" style="text-align:center;font-family:Poppins,sans-serif;font-size:2.2rem;font-weight:700;color:var(--c-accent);margin-top:12px">0.0</div>
+              <div id="bmi-category" style="text-align:center;color:var(--c-muted);margin-top:4px">Enter your stats</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Workout Library</h2>
+      <p class="section-sub animate-on-scroll">Curated exercises for every goal</p>
+      <div class="workout-grid">
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">Cardio</span><h4 style="margin-top:8px">Morning Run Intervals</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">High-intensity interval running to boost cardiovascular health.</p><div class="workout-meta"><span class="badge badge-cream">30 min</span><span class="badge" style="background:rgba(46,204,113,0.15);color:#2ECC71">Beginner</span></div></div>
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">Strength</span><h4 style="margin-top:8px">Full Body Strength Circuit</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">Compound movements targeting all major muscle groups.</p><div class="workout-meta"><span class="badge badge-cream">45 min</span><span class="badge" style="background:rgba(243,156,18,0.15);color:#F39C12">Intermediate</span></div></div>
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">Flexibility</span><h4 style="margin-top:8px">Morning Yoga Flow</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">Gentle sun salutations to wake up your body and mind.</p><div class="workout-meta"><span class="badge badge-cream">20 min</span><span class="badge" style="background:rgba(46,204,113,0.15);color:#2ECC71">Beginner</span></div></div>
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">HIIT</span><h4 style="margin-top:8px">Tabata Core Blast</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">20 seconds on, 10 seconds off — maximum burn in minimal time.</p><div class="workout-meta"><span class="badge badge-cream">25 min</span><span class="badge" style="background:rgba(231,76,60,0.15);color:#E74C3C">Advanced</span></div></div>
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">Mobility</span><h4 style="margin-top:8px">Hip &amp; Shoulder Mobility</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">Reduce stiffness and improve range of motion.</p><div class="workout-meta"><span class="badge badge-cream">15 min</span><span class="badge" style="background:rgba(46,204,113,0.15);color:#2ECC71">Beginner</span></div></div>
+        <div class="workout-card animate-on-scroll"><span class="badge badge-accent">Strength</span><h4 style="margin-top:8px">Upper Body Power</h4><p style="font-size:0.85rem;color:var(--c-muted);margin:6px 0">Push-pull supersets for chest, back, and arms.</p><div class="workout-meta"><span class="badge badge-cream">40 min</span><span class="badge" style="background:rgba(243,156,18,0.15);color:#F39C12">Intermediate</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="card animate-on-scroll" style="background:linear-gradient(135deg,#1A2E35,#2a3f4a);text-align:center;padding:48px">
+        <div style="font-size:2.5rem;margin-bottom:16px">🏋️‍♂️</div>
+        <h3 style="font-family:Poppins,sans-serif;font-size:1.4rem;margin-bottom:10px">Talk to a Fitness Expert</h3>
+        <p style="color:var(--c-muted);margin-bottom:24px">Get a personalized plan from our certified sports medicine specialists.</p>
+        <a href="/consult.html" class="btn btn-primary">Book a Session &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Related Articles</h2>
+      <div class="grid-3">
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">🏋️</div><span class="badge badge-accent" style="margin-bottom:8px">Fitness</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">HIIT vs Steady-State Cardio</h4><p style="font-size:0.85rem;color:var(--c-muted)">What does the latest research actually say?</p></a>
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">👊</div><span class="badge badge-accent" style="margin-bottom:8px">Success Story</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">Sarah’s Story: How I Lost 30kg</h4><p style="font-size:0.85rem;color:var(--c-muted)">A real transformation journey with practical lessons.</p></a>
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">🧠</div><span class="badge badge-accent" style="margin-bottom:8px">Fitness</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">5 Recovery Habits of Elite Athletes</h4><p style="font-size:0.85rem;color:var(--c-muted)">Rest, nutrition, and mobility for optimal performance.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="newsletter-bar"><h3>Train Smarter</h3><p>Weekly fitness tips from certified coaches.</p>
+    <div class="newsletter-form"><input type="email" placeholder="Your email" aria-label="Email"><button onclick="window.location='/newsletter.html'">Subscribe</button></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab">&#11088; Review</a>
+<script src="/main.js"></script>
+<script src="/body.js"></script>
+</body></html>

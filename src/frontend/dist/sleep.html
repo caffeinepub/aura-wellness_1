@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep — Aura Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<canvas id="star-canvas"></canvas>
+<nav id="navbar"><div class="nav-inner">
+  <a href="/index.html" class="nav-logo">Aura Wellness</a>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a><a href="/mind.html" class="nav-link">Mind</a>
+    <a href="/body.html" class="nav-link">Body</a><a href="/sleep.html" class="nav-link">Sleep</a>
+    <a href="/nutrition.html" class="nav-link">Nutrition</a><a href="/blog.html" class="nav-link">Blog</a>
+    <a href="/consult.html" class="nav-link">Consult</a>
+  </div>
+  <div class="nav-right"><button class="btn-login" onclick="window.location='/login.html'">Login</button><button id="theme-toggle" aria-label="Toggle theme"></button><button id="hamburger">&#9776;</button></div>
+</div></nav>
+<div id="mobile-menu"><button id="menu-close">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a><a href="/mind.html" class="nav-link mobile-nav-link">Mind</a><a href="/body.html" class="nav-link mobile-nav-link">Body</a><a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a><a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a><a href="/blog.html" class="nav-link mobile-nav-link">Blog</a><a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+<div id="cursor"></div>
+<main>
+  <div class="page-hero">
+    <h1>🌙 Sleep Science</h1>
+    <p>Optimize your rest with evidence-based tools and ambient soundscapes.</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:32px">
+        <!-- Moon Phase -->
+        <div class="card moon-display animate-on-scroll">
+          <h3 style="font-family:Poppins,sans-serif;margin-bottom:20px">Current Moon Phase</h3>
+          <svg id="moon-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" fill="#F5E6C8" opacity="0.9"/>
+            <circle id="moon-shadow" cx="75" cy="60" r="50" fill="#0D1B22"/>
+          </svg>
+          <div class="moon-phase-name" id="moon-phase-name">Calculating...</div>
+          <p style="color:var(--c-muted);font-size:0.85rem;margin-top:8px">The moon's phase can influence sleep quality and circadian rhythms.</p>
+        </div>
+        <!-- Sound Player -->
+        <div class="card animate-on-scroll">
+          <h3 style="font-family:Poppins,sans-serif;margin-bottom:8px">Ambient Sounds</h3>
+          <p style="color:var(--c-muted);font-size:0.85rem;margin-bottom:20px">Select a soundscape to aid relaxation</p>
+          <div id="now-playing" style="color:var(--c-accent);font-size:0.88rem;margin-bottom:16px;min-height:20px"></div>
+          <div class="sound-grid">
+            <button class="sound-btn" data-sound="Rain" aria-label="Rain sounds">
+              <div class="icon">🌧</div><span>Rain</span>
+              <div class="waveform"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
+            </button>
+            <button class="sound-btn" data-sound="Ocean" aria-label="Ocean sounds">
+              <div class="icon">🌊</div><span>Ocean</span>
+              <div class="waveform"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
+            </button>
+            <button class="sound-btn" data-sound="Forest" aria-label="Forest sounds">
+              <div class="icon">🌲</div><span>Forest</span>
+              <div class="waveform"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
+            </button>
+            <button class="sound-btn" data-sound="White Noise" aria-label="White noise">
+              <div class="icon">🌀</div><span>White Noise</span>
+              <div class="waveform"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Sleep Hygiene Checklist</h2>
+      <p class="section-sub animate-on-scroll">Track your nightly habits — saved automatically</p>
+      <div class="card animate-on-scroll" style="max-width:640px">
+        <div id="checklist">
+          <div class="checklist-item"><input type="checkbox" id="c1" aria-label="No screens"><label for="c1">No screens 1 hour before bed</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c2" aria-label="Cool room"><label for="c2">Keep bedroom cool (16–19°C / 60–67°F)</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c3" aria-label="Consistent bedtime"><label for="c3">Consistent bedtime and wake time</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c4" aria-label="No caffeine"><label for="c4">No caffeine after 2 PM</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c5" aria-label="Dark room"><label for="c5">Blackout curtains or eye mask</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c6" aria-label="Wind down"><label for="c6">15-minute wind-down ritual</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c7" aria-label="No alcohol"><label for="c7">Avoid alcohol within 3 hours of sleep</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c8" aria-label="Journal"><label for="c8">Write down tomorrow’s to-do list</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c9" aria-label="Magnesium"><label for="c9">Take magnesium or herbal tea</label></div>
+          <div class="checklist-item"><input type="checkbox" id="c10" aria-label="Gratitude"><label for="c10">Practice gratitude or light stretching</label></div>
+        </div>
+        <div style="margin-top:16px;color:var(--c-muted);font-size:0.85rem" id="checklist-progress"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="card animate-on-scroll" style="background:linear-gradient(135deg,#1A2E35,#2a3f4a);text-align:center;padding:48px">
+        <div style="font-size:2.5rem;margin-bottom:16px">👨‍⚕️</div>
+        <h3 style="font-family:Poppins,sans-serif;font-size:1.4rem;margin-bottom:10px">Talk to a Sleep Medicine Specialist</h3>
+        <p style="color:var(--c-muted);margin-bottom:24px">Struggling with insomnia or sleep disorders? Get professional support.</p>
+        <a href="/consult.html" class="btn btn-primary">Book a Session &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Related Articles</h2>
+      <div class="grid-3">
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">🌙</div><span class="badge badge-accent" style="margin-bottom:8px">Sleep Science</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">Why You’re Waking Up at 3am</h4><p style="font-size:0.85rem;color:var(--c-muted)">Understanding cortisol and sleep disruption patterns.</p></a>
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">👨‍⚕️</div><span class="badge badge-accent" style="margin-bottom:8px">Doctor’s Corner</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">Dr. Patel’s Sleep Hygiene Guide</h4><p style="font-size:0.85rem;color:var(--c-muted)">Expert-backed habits for restorative sleep every night.</p></a>
+        <a href="/blog.html" class="card animate-on-scroll" style="text-decoration:none"><div style="font-size:1.6rem;margin-bottom:12px">🧠</div><span class="badge badge-accent" style="margin-bottom:8px">Mindfulness</span><h4 style="font-family:Poppins,sans-serif;margin-bottom:6px">Body Scan Meditation for Sleep</h4><p style="font-size:0.85rem;color:var(--c-muted)">A step-by-step guide to the most effective pre-sleep practice.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="newsletter-bar"><h3>Sleep Better Tonight</h3><p>Weekly sleep science tips from our experts.</p>
+    <div class="newsletter-form"><input type="email" placeholder="Your email" aria-label="Email"><button onclick="window.location='/newsletter.html'">Subscribe</button></div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab">&#11088; Review</a>
+<script src="/main.js"></script>
+<script src="/sleep.js"></script>
+</body></html>

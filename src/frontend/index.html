@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Wellness — Your Journey to Total Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="page-loader">
+  <svg width="80" height="80" viewBox="0 0 80 80">
+    <circle id="loader-circle" cx="40" cy="40" r="32" fill="none" stroke="#7B68EE" stroke-width="3" opacity="0.8"/>
+  </svg>
+  <div id="loader-text">Aura</div>
+</div>
+<div id="cursor"></div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/index.html" class="nav-logo">Aura Wellness</a>
+    <div class="nav-links">
+      <a href="/index.html" class="nav-link">Home</a>
+      <a href="/mind.html" class="nav-link">Mind</a>
+      <a href="/body.html" class="nav-link">Body</a>
+      <a href="/sleep.html" class="nav-link">Sleep</a>
+      <a href="/nutrition.html" class="nav-link">Nutrition</a>
+      <a href="/blog.html" class="nav-link">Blog</a>
+      <a href="/consult.html" class="nav-link">Consult</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-login" onclick="window.location='/login.html'">Login</button>
+      <button id="theme-toggle" aria-label="Toggle theme">☀️</button>
+      <button id="hamburger" aria-label="Open menu">&#9776;</button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button id="menu-close" aria-label="Close menu">&times;</button>
+  <a href="/index.html" class="nav-link mobile-nav-link">Home</a>
+  <a href="/mind.html" class="nav-link mobile-nav-link">Mind</a>
+  <a href="/body.html" class="nav-link mobile-nav-link">Body</a>
+  <a href="/sleep.html" class="nav-link mobile-nav-link">Sleep</a>
+  <a href="/nutrition.html" class="nav-link mobile-nav-link">Nutrition</a>
+  <a href="/blog.html" class="nav-link mobile-nav-link">Blog</a>
+  <a href="/consult.html" class="nav-link mobile-nav-link">Consult</a>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <source src="https://www.pexels.com/video/3571264/download/" type="video/mp4">
+    </video>
+    <canvas id="aurora-canvas" style="position:absolute;inset:0;width:100%;height:100%;display:none;"></canvas>
+    <div class="hero-overlay"></div>
+    <svg class="breathing-circle" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="160" cy="160" r="150" stroke="#7B68EE" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+      <defs><filter id="glow"><feGaussianBlur stdDeviation="6" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    </svg>
+    <div class="hero-content">
+      <h1 id="hero-headline">
+        <span class="word">Your</span> <span class="word">journey</span> <span class="word">to</span> <span class="word">total</span> <span class="word">wellness</span> <span class="word">starts</span> <span class="word">here</span>
+      </h1>
+      <p class="hero-sub" id="hero-sub">Mind. Body. Soul. All in one place.</p>
+      <div class="hero-ctas">
+        <a href="/mind.html" class="btn btn-primary">Begin Your Journey &rarr;</a>
+        <button class="btn btn-outline" onclick="document.getElementById('pillars').scrollIntoView({behavior:'smooth'})">&#9654; Watch Our Story</button>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">⌄</div>
+    <div id="video-controls" role="group" aria-label="Video controls">
+      <button id="vc-play" aria-label="Play/Pause">⏸</button>
+      <div id="video-progress" role="progressbar" aria-label="Video progress"><div id="video-progress-fill"></div></div>
+      <button id="vc-mute" aria-label="Mute/Unmute" class="desktop-only">🔇</button>
+      <button id="vc-fs" aria-label="Fullscreen" class="desktop-only">⛶</button>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-bar" aria-label="Wellness stats">
+    <div class="ticker-track">
+      <span class="ticker-item">&#127774; <span>10,000+</span> Members worldwide</span>
+      <span class="ticker-item">&#127939; <span>500+</span> Guided workouts</span>
+      <span class="ticker-item">&#11088; <span>4.9</span> Average rating</span>
+      <span class="ticker-item">&#128104;&#8205;&#9877;&#65039; <span>47</span> Verified doctors</span>
+      <span class="ticker-item">&#129340; <span>98%</span> Satisfaction rate</span>
+      <span class="ticker-item">&#127774; <span>10,000+</span> Members worldwide</span>
+      <span class="ticker-item">&#127939; <span>500+</span> Guided workouts</span>
+      <span class="ticker-item">&#11088; <span>4.9</span> Average rating</span>
+      <span class="ticker-item">&#128104;&#8205;&#9877;&#65039; <span>47</span> Verified doctors</span>
+      <span class="ticker-item">&#129340; <span>98%</span> Satisfaction rate</span>
+    </div>
+  </div>
+
+  <!-- PILLARS -->
+  <section id="pillars" class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll" style="text-align:center">Wellness Pillars</h2>
+      <p class="section-sub animate-on-scroll" style="text-align:center">Everything you need for a balanced life</p>
+      <div class="grid-3">
+        <a href="/mind.html" class="card pillar-card animate-on-scroll" style="text-decoration:none">
+          <div class="pillar-icon">🧠</div>
+          <h3>Mind</h3>
+          <p>Reduce stress, build resilience, and cultivate mental clarity through guided exercises and expert insights.</p>
+        </a>
+        <a href="/body.html" class="card pillar-card animate-on-scroll" style="text-decoration:none">
+          <div class="pillar-icon">&#128170;</div>
+          <h3>Body</h3>
+          <p>Discover workouts tailored to your goals, track your progress, and build a stronger, healthier body.</p>
+        </a>
+        <a href="/sleep.html" class="card pillar-card animate-on-scroll" style="text-decoration:none">
+          <div class="pillar-icon">🌙</div>
+          <h3>Sleep</h3>
+          <p>Optimize your rest with science-backed sleep hygiene tools, moon tracking, and ambient soundscapes.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTERS -->
+  <section class="counters-section section">
+    <div class="container">
+      <div class="grid-4">
+        <div class="counter-card animate-on-scroll"><div class="counter-num" data-target="10000">0</div><div class="counter-label">Members Worldwide</div></div>
+        <div class="counter-card animate-on-scroll"><div class="counter-num" data-target="500">0</div><div class="counter-label">Guided Workouts</div></div>
+        <div class="counter-card animate-on-scroll"><div class="counter-num" data-target="98">0</div><div class="counter-label">% Satisfaction</div></div>
+        <div class="counter-card animate-on-scroll"><div class="counter-num" data-target="47">0</div><div class="counter-label">Verified Doctors</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED ARTICLES -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Featured Articles</h2>
+      <p class="section-sub animate-on-scroll">Latest from our wellness experts</p>
+      <div class="articles-scroll">
+        <div class="article-preview"><div class="article-preview-img" style="background:linear-gradient(135deg,#1A2E35,#7B68EE)">🧠</div><div class="article-preview-body"><div class="cat">Mind</div><h4>10 Science-Backed Ways to Reduce Cortisol Naturally</h4></div></div>
+        <div class="article-preview"><div class="article-preview-img" style="background:linear-gradient(135deg,#1E4A2A,#2ECC71)">🥗</div><div class="article-preview-body"><div class="cat">Nutrition</div><h4>The Mediterranean Diet: A Complete Beginner’s Guide</h4></div></div>
+        <div class="article-preview"><div class="article-preview-img" style="background:linear-gradient(135deg,#2A1A4A,#7B68EE)">🌙</div><div class="article-preview-body"><div class="cat">Sleep</div><h4>Why You’re Waking Up at 3am — and How to Fix It</h4></div></div>
+        <div class="article-preview"><div class="article-preview-img" style="background:linear-gradient(135deg,#3A1A1A,#E74C3C)">🏋️</div><div class="article-preview-body"><div class="cat">Fitness</div><h4>HIIT vs Steady-State Cardio: What the Research Says</h4></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY TIP -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll" style="text-align:center">Today’s Wellness Tip</h2>
+      <div class="tip-card animate-on-scroll" id="daily-tip-card">
+        <div class="tip-emoji" id="tip-emoji">🌟</div>
+        <h3 id="tip-title">Loading tip…</h3>
+        <p id="tip-body"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div style="position:relative">
+      <h2>Ready to transform your life?</h2>
+      <p>Join 10,000+ members on their wellness journey today.</p>
+      <a href="/consult.html" class="btn btn-primary" style="display:inline-flex">Book a Free Consultation &rarr;</a>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<a href="/reviews.html" class="review-fab" aria-label="Leave a review">&#11088; Leave a Review</a>
+
+<script src="/main.js"></script>
+<script src="/index.js"></script>
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
